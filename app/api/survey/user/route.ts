@@ -71,6 +71,7 @@ async function sendUserSurveySlackNotification(survey: IUserSurvey) {
 
   try {
     // Helper function to format values for Slack
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const formatValue = (value: any): string => {
       if (value === undefined || value === null) return "Not provided";
       if (Array.isArray(value)) return value.length ? value.join(", ") : "None";
@@ -170,6 +171,7 @@ async function sendUserSurveySlackNotification(survey: IUserSurvey) {
           });
         }
         return acc;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }, [] as any[]),
       // Additional explanations
       ...explanationFields.map(field => ({

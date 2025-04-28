@@ -75,6 +75,7 @@ async function sendSlackNotification(survey: IPhotographerSurvey) {
 
   try {
     // Helper to format object values
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const formatValue = (value: any): string => {
       if (value === undefined || value === null) return "Not provided";
       if (Array.isArray(value)) return value.length ? value.join(", ") : "None";
@@ -84,6 +85,7 @@ async function sendSlackNotification(survey: IPhotographerSurvey) {
     };
 
     // Special formatting for nested objects
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const formatObject = (obj: Record<string, any>): string => {
       return Object.entries(obj)
         .map(([key, val]) => {
