@@ -12,7 +12,6 @@ import {
   Zap,
   Users,
   Lightbulb,
-  TriangleAlertIcon,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
@@ -43,7 +42,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useVisitorIp } from "@/hooks/use-ip-address";
-import { Skeleton } from "../ui/skeleton";
+import { IpErrorCard } from "../error/IpErrorCard";
+import { IpLoadingSkeleton } from "../form-loading/IpLoadingSkeleton";
+import toast from "react-hot-toast";
 
 const formSections = [
   {
@@ -87,7 +88,7 @@ export default function PhotographyForm() {
     visitorId,
     isLoading: isIpLoading,
     error: ipError,
-    getData,
+    retry,
   } = useVisitorIp();
 
   const form = useForm<PhotographerFormData>({
@@ -148,7 +149,16 @@ export default function PhotographyForm() {
       console.log("Error while submitting survey data:", error);
     }
   };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+   const onError = (errors: any) => {  
+      // Show error toast for each field with errors
+      Object.entries(errors).forEach(([fieldName, error]) => {
+        if (error && typeof error === "object" && "message" in error) {
+          toast.error(`Please fix the errors in the form,${fieldName}: ${error.message}`);
+        }
+      });
+  
+    };
   const nextStep = () => {
     if (currentStep < formSections.length - 1) {
       setCurrentStep(currentStep + 1);
@@ -171,103 +181,14 @@ export default function PhotographyForm() {
     show: { opacity: 1, y: 0 },
   };
 
-  const handleRetry = async () => {
-    try {
-      await getData({ ignoreCache: true });
-    } catch (error) {
-      console.error("Error during retry:", error);
-    }
-  };
+
+  
   if (ipError) {
-    return (
-      <Card className="w-full max-w-3xl mx-auto border-2 border-red-500 shadow-lg bg-red-50">
-        <CardHeader>
-          <CardTitle className="text-2xl font-semibold text-red-600 flex items-center gap-2">
-            <TriangleAlertIcon className="text-4xl text-red-600" />{" "}
-            {/* Error Icon */}
-            Something Went Wrong
-          </CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-4 p-6">
-          {/* Error Message */}
-          <div className="text-lg text-red-700">
-            <p>
-              {ipError?.message ||
-                "An unknown error occurred. Please try again later."}
-            </p>
-            <p className="text-sm text-gray-600 mt-2">
-              If you are using an ad blocker, please try disabling it
-              temporarily, as it may block essential scripts needed to load the
-              page properly.
-            </p>
-          </div>
-
-          {/* Retry Button */}
-          <div className="mt-4">
-            <Button
-              onClick={handleRetry}
-              variant="destructive"
-              className="w-full py-2 rounded-lg cursor-pointer"
-              disabled={isIpLoading}
-            >
-              {isIpLoading ? "Retrying..." : "Retry"}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    );
+    return <IpErrorCard ipError={ipError} handleRetry={()=>retry()} isIpLoading={isIpLoading?? false} />;
   }
-
+  
   if (isIpLoading) {
-    return (
-      <Card className="border-0 shadow-lg w-full max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl flex items-center gap-2">
-            <Skeleton className="h-6 w-6" />
-            <Skeleton className="h-8 w-48" />
-          </CardTitle>
-        </CardHeader>
-
-        <CardContent>
-          <motion.form className="space-y-6">
-            {/* Step Indicator */}
-            <div className="flex justify-between items-center mb-8">
-              <Skeleton className="h-10 w-10 rounded-xl" />
-              <Skeleton className="h-6 w-24" />
-              <Skeleton className="h-10 w-10 rounded-xl" />
-            </div>
-
-            {/* Form Fields Skeletons */}
-            <div className="space-y-6">
-              {/* Specialty Field */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-base font-medium text-gray-800">
-                  <Skeleton className="h-8 w-8 rounded-full bg-blue-100 text-blue-600 text-sm font-bold" />{" "}
-                  {/* Skeleton for Circle Number */}
-                  <Skeleton className="h-6 w-48" />{" "}
-                  {/* Skeleton for Specialty Field Label */}
-                </div>
-                <Skeleton className="h-12 w-full rounded-lg" />{" "}
-                {/* Skeleton for Select Input */}
-              </div>
-
-              {/* Years of Experience Field */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-lg font-medium text-gray-800">
-                  <Skeleton className="h-8 w-8 rounded-full bg-blue-100 text-blue-700 text-sm font-bold" />{" "}
-                  {/* Skeleton for Circle Number */}
-                  <Skeleton className="h-6 w-64" />{" "}
-                  {/* Skeleton for Years of Experience Label */}
-                </div>
-                <Skeleton className="h-12 w-full rounded-lg" />{" "}
-                {/* Skeleton for Select Input */}
-              </div>
-            </div>
-          </motion.form>
-        </CardContent>
-      </Card>
-    );
+    return <IpLoadingSkeleton />;
   }
 
   return (
@@ -280,7 +201,7 @@ export default function PhotographyForm() {
       <CardContent>
         <Form {...form}>
           <motion.form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit,onError)}
             variants={container}
             initial="hidden"
             animate="show"

@@ -2,6 +2,14 @@
 import { motion } from "framer-motion";
 import { Image, User, Award, DollarSign } from "lucide-react";
 import PhotographyForm from "@/components/forms/photography-form";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function PhotographyPage() {
   return (
@@ -107,6 +115,20 @@ export default function PhotographyPage() {
           transition={{ delay: 0.3 }}
           className="w-full max-w-2xl"
         >
+          {/* Breadcrumbs Section */}
+          <div className="mb-3">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Photography Survey</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
           <PhotographyForm />
         </motion.div>
       </div>

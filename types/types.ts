@@ -1,4 +1,4 @@
-import { contactSchema, photographerSchema } from "@/validations/validation";
+import { contactSchema, photographerSchema, userSurveySchema } from "@/validations/validation";
 import Mail from "nodemailer/lib/mailer";
 import { z } from "zod";
 
@@ -12,3 +12,5 @@ export type ISendEmailTypes = {
 };
 
 export type PhotographerFormData = z.infer<typeof photographerSchema>;
+
+export type UserSurveyFormData=z.infer<typeof userSurveySchema>

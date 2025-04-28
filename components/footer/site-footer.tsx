@@ -14,7 +14,7 @@ export default function SiteFooter() {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="fixed bottom-0 left-0 right-0 border-t bg-white/50 backdrop-blur-sm dark:bg-gray-950/50 z-50"
     >
-      <div className="container mx-auto px-4 py-6 md:py-8">
+      <div className="container mx-auto px-4 py-3 md:py-4">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex flex-col items-center gap-2 text-center md:flex-row md:gap-4 md:text-left">
             <p className="text-sm text-gray-600 dark:text-gray-400">

@@ -15,22 +15,35 @@ export const useVisitorIp = () => {
     getData,
   } = useVisitorData({ extendedResult: true }, { immediate: false });
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (ignoreCache = false) => {
+    setIsLoading(true);
+    setError(null);
     try {
-      const result = await getData();
-      if (result.ip !== ip) setIp(result.ip);
-      if (result.visitorId !== visitorId) setVisitorId(result.visitorId);
+      const result = await getData({ ignoreCache });
+      setIp(result.ip);
+      setVisitorId(result.visitorId);
     } catch (err) {
       setError(err as Error);
     } finally {
       setIsLoading(false);
     }
-  }, [getData, ip, visitorId]);
+  }, [getData]);
+
+  const retry = useCallback(async (ignoreCache = false) => {
+    await fetchData(ignoreCache);
+  }, [fetchData]);
 
   useEffect(() => {
     if (!data && !fpLoading) {
       fetchData();
     }
   }, [data, fpLoading, fetchData]);
-  return { ip, visitorId, isLoading, error,getData };
+
+  return { 
+    ip, 
+    visitorId, 
+    isLoading: isLoading || fpLoading, 
+    error, 
+    retry 
+  };
 };

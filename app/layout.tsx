@@ -4,6 +4,8 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import SiteFooter from "@/components/footer/site-footer";
 import ClientProvider from "@/providers/client-provider";
+import { Suspense } from "react";
+import Loader from "@/components/loader/loader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -142,25 +144,27 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-gradient-to-br from-blue-50 to-purple-50">
-        <ClientProvider>
-          <main className="pb-20">{children}</main>
-        </ClientProvider>
-        <SiteFooter />
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            className: "rounded-full",
-            duration: 4000,
-            success: {
-              duration: 3000,
+        <Suspense fallback={<Loader/>}>
+          <ClientProvider>
+            <main className="pb-20">{children}</main>
+          </ClientProvider>
+          <SiteFooter />
+          <Toaster
+            position="top-center"
+            toastOptions={{
               className: "rounded-full",
-            },
-            error: {
-              duration: 5000,
-              className: "rounded-full",
-            },
-          }}
-        />
+              duration: 4000,
+              success: {
+                duration: 3000,
+                className: "rounded-full",
+              },
+              error: {
+                duration: 5000,
+                className: "rounded-full",
+              },
+            }}
+          />
+        </Suspense>
       </body>
     </html>
   );

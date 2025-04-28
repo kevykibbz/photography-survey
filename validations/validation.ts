@@ -52,3 +52,24 @@ export const photographerSchema = z.object({
       .describe("Would you be willing to pay for these features?")
   }).optional(),
 });
+
+
+
+export const userSurveySchema = z.object({
+  usageFrequency: z.enum(["never", "rarely", "occasionally", "frequently"]),
+  useCases: z.array(z.string()),
+  selfPhotographyFrequency: z.enum(["never", "rarely", "occasionally", "frequently"]),
+  willingToPay: z.boolean(),
+  maxPrice: z.string().optional(), // Optional field: $1–$5, etc.
+  paymentPreference: z.enum(["per_photo", "subscription", "credits"]).optional(),
+  barriers: z.array(z.string()).optional(),
+  conversionFactors: z.array(z.string()).optional(),
+  conversionOtherExplanation: z.string().optional(),
+  contestParticipation: z.enum(["voter", "submitter", "none"]),
+  ageRange: z.enum(["Under 18", "18-24", "25-34", "35-44", "45-54", "55+"]),
+  occupation: z.string(),
+  locationPlatformInterest: z.enum(["yes", "no", "maybe"]).optional(),
+  locationPlatformExplanation: z.string().optional(),
+  platformFeatures: z.array(z.string()).optional(),
+  platformFeaturesOther: z.string().optional(),
+});
