@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Camera, User, Check, Flashlight } from "lucide-react";
+import Link from "next/link";
 
 export default function RoleSelection() {
   const container = {
@@ -125,10 +126,10 @@ export default function RoleSelection() {
                     asChild
                     className="h-20 w-full flex gap-2 text-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
                   >
-                    <a href="/survey/photographer">
+                    <Link href="/survey/photographer">
                       <Camera className="h-12 w-12" />
                       <span>Photographer</span>
-                    </a>
+                    </Link>
                   </Button>
                 </motion.div>
 
@@ -141,10 +142,10 @@ export default function RoleSelection() {
                     asChild
                     className="h-20 w-full flex gap-2 text-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700"
                   >
-                    <a href="/survey/user">
+                    <Link href="/survey/user">
                       <User className="h-12 w-12" />
                       <span>Photo Enthusiast</span>
-                    </a>
+                    </Link>
                   </Button>
                 </motion.div>
               </div>
