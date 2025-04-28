@@ -36,23 +36,27 @@ function BreadcrumbLink({
   asChild,
   className,
   href,
+  children,
   ...props
-}: React.ComponentProps<"a"> & {
+}: React.ComponentProps<typeof Link> & {
   asChild?: boolean;
-  href: string;
 }) {
-  const Comp = asChild ? Slot : "a";
+  const Comp = asChild ? Slot : Link;
 
   return (
-    <Link href={href} passHref>
-      <Comp
-        data-slot="breadcrumb-link"
-        className={cn("hover:text-foreground transition-colors", className)}
-        {...props}
-      />
-    </Link>
+    <Comp
+      href={href}
+      className={cn(
+        "hover:text-foreground transition-colors",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Comp>
   );
 }
+
 function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span

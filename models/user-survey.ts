@@ -2,7 +2,7 @@ import mongoose, { Schema, model, Document } from "mongoose";
 import { CallbackError, HydratedDocument } from "mongoose";
 
 // Define the IUserSurvey interface
-interface IUserSurvey extends Document {
+export interface IUserSurvey extends Document {
   fingerprint: string; // unique identifier for each user survey
   usageFrequency: "never" | "rarely" | "occasionally" | "frequently";
   useCases: string[];

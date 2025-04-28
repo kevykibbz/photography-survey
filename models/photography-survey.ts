@@ -1,7 +1,7 @@
 import mongoose, { Schema, model, Document } from "mongoose";
 import { CallbackError, HydratedDocument } from "mongoose";
 
-interface IPhotographerSurvey extends Document {
+export interface IPhotographerSurvey extends Document {
   fingerprint: string;
   specialty:
     | "Wedding"
