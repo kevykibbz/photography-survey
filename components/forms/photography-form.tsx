@@ -196,6 +196,11 @@ export default function PhotographyForm() {
               {ipError?.message ||
                 "An unknown error occurred. Please try again later."}
             </p>
+            <p className="text-sm text-gray-600 mt-2">
+              If you are using an ad blocker, please try disabling it
+              temporarily, as it may block essential scripts needed to load the
+              page properly.
+            </p>
           </div>
 
           {/* Retry Button */}
