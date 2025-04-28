@@ -42,7 +42,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useVisitorData } from "@fingerprintjs/fingerprintjs-pro-react";
 import { useVisitorIp } from "@/hooks/use-ip-address";
 import { Skeleton } from "../ui/skeleton";
 

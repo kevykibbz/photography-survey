@@ -4,8 +4,6 @@ import { Image, User, Award, DollarSign } from "lucide-react";
 import PhotographyForm from "@/components/forms/photography-form";
 
 export default function PhotographyPage() {
- 
-
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Section */}
@@ -52,6 +50,7 @@ export default function PhotographyPage() {
               >
                 {[
                   {
+                    // eslint-disable-next-line jsx-a11y/alt-text
                     icon: <Image className="h-6 w-6" />,
                     text: "Showcase your portfolio",
                   },
@@ -108,7 +107,7 @@ export default function PhotographyPage() {
           transition={{ delay: 0.3 }}
           className="w-full max-w-2xl"
         >
-         <PhotographyForm/>
+          <PhotographyForm />
         </motion.div>
       </div>
     </div>

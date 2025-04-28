@@ -1,11 +1,10 @@
 import dbConnect from "@/lib/db/db-connect";
 import { PhotographerSurveyModel } from "@/models";
-import { generateFingerprint } from "@/utils/generate-fingerprint";
 import { photographerSchema } from "@/validations/validation";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { fingerprint, ...surveyData } = body;

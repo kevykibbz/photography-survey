@@ -30,6 +30,7 @@ export const usePhotographerSurvey = () => {
     onSuccess: () => {
       toast.success("Survey submitted successfully!");
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       if (error?.errors) {
         error.errors.forEach((err: { path: string; message: string }) => {

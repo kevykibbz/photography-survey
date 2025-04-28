@@ -35,8 +35,8 @@ export default function ContactPage() {
     defaultValues: {
       name: "",
       email: "",
-      message: ""
-    }
+      message: "",
+    },
   });
 
   const onSubmit = async (data: ContactFormData) => {
@@ -61,6 +61,7 @@ export default function ContactPage() {
       console.log(result);
       toast.success("Message sent successfully!");
       form.reset();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.name === "AbortError") {
         console.error("Request timed out:", error);
@@ -79,7 +80,7 @@ export default function ContactPage() {
   };
 
   const isSubmitDisabled = !form.formState.isValid || isLoading;
-  
+
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Section - Background Image with Overlay - Now with fixed height on mobile */}
@@ -103,7 +104,7 @@ export default function ContactPage() {
                   Get in Touch
                 </CardTitle>
                 <CardDescription className="text-white/70 mt-2 text-sm lg:text-base">
-                  We're here to help with any questions you have.
+                  We&apos;re here to help with any questions you have.
                 </CardDescription>
               </CardHeader>
 
@@ -112,21 +113,27 @@ export default function ContactPage() {
                   <h3 className="text-base lg:text-lg font-semibold text-white mb-1">
                     Our Office
                   </h3>
-                  <p className="text-xs lg:text-sm text-white/70">416,50204-kimilili</p>
+                  <p className="text-xs lg:text-sm text-white/70">
+                    416,50204-kimilili
+                  </p>
                 </div>
 
                 <div className="bg-white/5 rounded-lg p-3 lg:p-4 hover:bg-white/10 transition">
                   <h3 className="text-base lg:text-lg font-semibold text-white mb-1">
                     Email Us
                   </h3>
-                  <p className="text-xs lg:text-sm text-white/70">info@tevinly.com</p>
+                  <p className="text-xs lg:text-sm text-white/70">
+                    info@tevinly.com
+                  </p>
                 </div>
 
                 <div className="bg-white/5 rounded-lg p-3 lg:p-4 hover:bg-white/10 transition">
                   <h3 className="text-base lg:text-lg font-semibold text-white mb-1">
                     Call Us
                   </h3>
-                  <p className="text-xs lg:text-sm text-white/70">+254 (796) 268-817</p>
+                  <p className="text-xs lg:text-sm text-white/70">
+                    +254 (796) 268-817
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -151,7 +158,7 @@ export default function ContactPage() {
                 Contact Us
               </CardTitle>
               <CardDescription className="text-center">
-                Fill out the form and we'll get back to you
+                Fill out the form and we&apos;ll get back to you
               </CardDescription>
             </CardHeader>
             <CardContent>
