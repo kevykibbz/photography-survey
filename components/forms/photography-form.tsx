@@ -184,7 +184,7 @@ export default function PhotographyForm() {
 
   
   if (ipError) {
-    return <IpErrorCard ipError={ipError} handleRetry={()=>retry()} isIpLoading={isIpLoading?? false} />;
+    return <IpErrorCard ipError={ipError} handleRetry={()=>retry(true)} isIpLoading={isIpLoading?? false} />;
   }
   
   if (isIpLoading) {

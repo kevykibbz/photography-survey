@@ -159,7 +159,7 @@ export default function UserForm() {
     return (
       <IpErrorCard
         ipError={ipError}
-        handleRetry={() => retry()}
+        handleRetry={() => retry(true)}
         isIpLoading={isLoading ?? false}
       />
     );
