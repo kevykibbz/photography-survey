@@ -1,12 +1,12 @@
 "use client";
 
 import { useVisitorData } from "@fingerprintjs/fingerprintjs-pro-react";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 export const useVisitorIp = () => {
   const [ip, setIp] = useState<string | null>(null);
   const [visitorId, setVisitorId] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); 
   const [error, setError] = useState<Error | null>(null);
 
   const {
@@ -37,13 +37,6 @@ export const useVisitorIp = () => {
     (ignoreCache = false) => fetchData(ignoreCache),
     [fetchData]
   );
-
-  // Initial fetch
-  useEffect(() => {
-    if (!data && !fpLoading) {
-      fetchData();
-    }
-  }, [data, fpLoading, fetchData]);
 
   return {
     ip,
