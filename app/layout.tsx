@@ -6,6 +6,7 @@ import SiteFooter from "@/components/footer/site-footer";
 import ClientProvider from "@/providers/client-provider";
 import { Suspense } from "react";
 import Loader from "@/components/loader/loader";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -144,9 +145,11 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-gradient-to-br from-blue-50 to-purple-50">
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <ClientProvider>
-            <main className="pb-20">{children}</main>
+            <main className="pb-20">
+              {children} <Analytics />
+            </main>
           </ClientProvider>
           <SiteFooter />
           <Toaster
