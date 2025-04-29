@@ -90,7 +90,8 @@ export default function PhotographyForm() {
     error: ipError,
     retry,
   } = useVisitorIp();
-
+  console.log("visitorId:", visitorId);
+  console.log("ip address:", ip);
   const form = useForm<PhotographerFormData>({
     resolver: zodResolver(photographerSchema),
     defaultValues: {
@@ -128,7 +129,7 @@ export default function PhotographyForm() {
   const mutation = usePhotographerSurvey();
 
   const onSubmit = async (data: PhotographerFormData) => {
-    if(visitorId){
+    if (visitorId) {
       const formDataWithFingerprint = {
         ...data,
         fingerprint: visitorId,
@@ -137,7 +138,7 @@ export default function PhotographyForm() {
           userAgent: navigator.userAgent,
         },
       };
-  
+
       try {
         await mutation.mutateAsync(formDataWithFingerprint);
         form.reset();
@@ -149,22 +150,22 @@ export default function PhotographyForm() {
       } catch (error) {
         console.log("Error while submitting survey data:", error);
       }
-    }else{
+    } else {
       console.log("Error while submitting survey data");
-      toast.error('something went wrong. please try again later')
+      toast.error("something went wrong. please try again later");
     }
-  
   };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-   const onError = (errors: any) => {  
-      // Show error toast for each field with errors
-      Object.entries(errors).forEach(([fieldName, error]) => {
-        if (error && typeof error === "object" && "message" in error) {
-          toast.error(`Please fix the errors in the form,${fieldName}: ${error.message}`);
-        }
-      });
-  
-    };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onError = (errors: any) => {
+    // Show error toast for each field with errors
+    Object.entries(errors).forEach(([fieldName, error]) => {
+      if (error && typeof error === "object" && "message" in error) {
+        toast.error(
+          `Please fix the errors in the form,${fieldName}: ${error.message}`
+        );
+      }
+    });
+  };
   const nextStep = () => {
     if (currentStep < formSections.length - 1) {
       setCurrentStep(currentStep + 1);
@@ -187,12 +188,16 @@ export default function PhotographyForm() {
     show: { opacity: 1, y: 0 },
   };
 
-
-  
   if (ipError) {
-    return <IpErrorCard ipError={ipError} handleRetry={()=>retry(true)} isIpLoading={isIpLoading?? false} />;
+    return (
+      <IpErrorCard
+        ipError={ipError}
+        handleRetry={() => retry(true)}
+        isIpLoading={isIpLoading ?? false}
+      />
+    );
   }
-  
+
   if (isIpLoading) {
     return <IpLoadingSkeleton />;
   }
@@ -207,7 +212,7 @@ export default function PhotographyForm() {
       <CardContent>
         <Form {...form}>
           <motion.form
-            onSubmit={form.handleSubmit(onSubmit,onError)}
+            onSubmit={form.handleSubmit(onSubmit, onError)}
             variants={container}
             initial="hidden"
             animate="show"
