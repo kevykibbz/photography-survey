@@ -128,26 +128,32 @@ export default function PhotographyForm() {
   const mutation = usePhotographerSurvey();
 
   const onSubmit = async (data: PhotographerFormData) => {
-    const formDataWithFingerprint = {
-      ...data,
-      fingerprint: visitorId,
-      metadata: {
-        ip: ip,
-        userAgent: navigator.userAgent,
-      },
-    };
-
-    try {
-      await mutation.mutateAsync(formDataWithFingerprint);
-      form.reset();
-      confetti({
-        particleCount: 200,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-    } catch (error) {
-      console.log("Error while submitting survey data:", error);
+    if(visitorId){
+      const formDataWithFingerprint = {
+        ...data,
+        fingerprint: visitorId,
+        metadata: {
+          ip: ip,
+          userAgent: navigator.userAgent,
+        },
+      };
+  
+      try {
+        await mutation.mutateAsync(formDataWithFingerprint);
+        form.reset();
+        confetti({
+          particleCount: 200,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      } catch (error) {
+        console.log("Error while submitting survey data:", error);
+      }
+    }else{
+      console.log("Error while submitting survey data");
+      toast.error('something went wrong. please try again later')
     }
+  
   };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const onError = (errors: any) => {  

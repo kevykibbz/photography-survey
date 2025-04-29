@@ -120,28 +120,33 @@ export default function UserForm() {
   };
 
   const onSubmit = async (data: UserSurveyFormData) => {
-    const formDataWithFingerprint = {
-      ...data,
-      fingerprint: visitorId,
-      metadata: {
-        ip: ip,
-        userAgent: navigator.userAgent,
-      },
-    };
+    if (visitorId) {
+      const formDataWithFingerprint = {
+        ...data,
+        fingerprint: visitorId,
+        metadata: {
+          ip: ip,
+          userAgent: navigator.userAgent,
+        },
+      };
 
-    try {
-      await mutation.mutateAsync(formDataWithFingerprint);
-      form.reset();
-      confetti({
-        particleCount: 200,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-    } catch (error) {
-      console.log("Error while submitting survey data:", error);
+      try {
+        await mutation.mutateAsync(formDataWithFingerprint);
+        form.reset();
+        confetti({
+          particleCount: 200,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      } catch (error) {
+        console.log("Error while submitting survey data:", error);
+      }
+    } else {
+      console.log("Error while submitting survey data");
+      toast.error("something went wrong. please try again later");
     }
   };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onError = (errors: any) => {
     console.error("Form errors:", errors);
 
@@ -447,7 +452,8 @@ export default function UserForm() {
                               <span className="flex items-center font-bold justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full text-sm">
                                 5
                               </span>
-                              What&apos;s the maximum price you&apos;d pay per photo?
+                              What&apos;s the maximum price you&apos;d pay per
+                              photo?
                             </FormLabel>
                             <Select
                               onValueChange={field.onChange}
