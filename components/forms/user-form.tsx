@@ -57,8 +57,7 @@ export default function UserForm() {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const { ip, visitorId, isLoading, error: ipError, retry } = useVisitorIp();
-
+  const { ip, visitorId, isLoading, isFetching,error: ipError, retry } = useVisitorIp();
   const userSurveySections = [
     {
       title: "Photography Consumption Habits",
@@ -148,9 +147,6 @@ export default function UserForm() {
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onError = (errors: any) => {
-    console.error("Form errors:", errors);
-
-    // Show error toast for each field with errors
     Object.entries(errors).forEach(([fieldName, error]) => {
       if (error && typeof error === "object" && "message" in error) {
         toast.error(
@@ -164,8 +160,8 @@ export default function UserForm() {
     return (
       <IpErrorCard
         ipError={ipError}
-        handleRetry={() => retry(true)}
-        isIpLoading={isLoading ?? false}
+        handleRetry={() => retry()}
+        isIpLoading={isFetching  ?? false}
       />
     );
   }

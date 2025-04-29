@@ -87,6 +87,7 @@ export default function PhotographyForm() {
     ip,
     visitorId,
     isLoading: isIpLoading,
+    isFetching,
     error: ipError,
     retry,
   } = useVisitorIp();
@@ -157,7 +158,6 @@ export default function PhotographyForm() {
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onError = (errors: any) => {
-    // Show error toast for each field with errors
     Object.entries(errors).forEach(([fieldName, error]) => {
       if (error && typeof error === "object" && "message" in error) {
         toast.error(
@@ -192,8 +192,8 @@ export default function PhotographyForm() {
     return (
       <IpErrorCard
         ipError={ipError}
-        handleRetry={() => retry(true)}
-        isIpLoading={isIpLoading ?? false}
+        handleRetry={() => retry()}
+        isIpLoading={isFetching ?? false}
       />
     );
   }
