@@ -91,8 +91,7 @@ export default function PhotographyForm() {
     error: ipError,
     retry,
   } = useVisitorIp();
-  console.log("visitorId:", visitorId);
-  console.log("ip address:", ip);
+  
   const form = useForm<PhotographerFormData>({
     resolver: zodResolver(photographerSchema),
     defaultValues: {

@@ -169,7 +169,6 @@ export default function UserForm() {
   if (isLoading) {
     return <IpLoadingSkeleton />;
   }
-  console.log("form errors:", form.formState.errors);
   return (
     <Card className="border-0 shadow-lg w-full max-w-3xl mx-auto">
       <CardHeader>

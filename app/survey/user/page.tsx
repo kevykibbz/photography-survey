@@ -15,7 +15,7 @@ export default function UserPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Section */}
-      <div className="lg:w-1/2 relative h-[500px] lg:h-auto">
+      <div className="lg:w-1/2 relative h-[500px] lg:h-auto hidden lg:flex">
         <div
           className="absolute inset-0 bg-[url('/images/user-survey-bg.jpg')] bg-cover bg-center"
           style={{
