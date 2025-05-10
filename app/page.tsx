@@ -54,7 +54,7 @@ export default function RoleSelection() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative w-full lg:w-1/2 h-full flex flex-col justify-center p-6 lg:p-12 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden"
+          className="relative w-full lg:w-1/2 h-full flex flex-col justify-center p-6 lg:p-12 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hidden lg:flex"
         >
           {/* Camera Icon */}
           <div className="absolute bottom-4 right-4 opacity-10 transform rotate-12 scale-150">
@@ -114,7 +114,7 @@ export default function RoleSelection() {
           >
             <motion.div variants={item}>
               <h2 className="text-2xl font-bold text-center mb-6">
-                Get started as
+                Submit survey as
               </h2>
               <div className="space-y-6">
                 <motion.div
